@@ -1,0 +1,57 @@
+{
+    "id": "google-oauth",
+    "name": "Google OAuth",
+    "version": "1.0.0",
+    "description": "Google OAuth authentication for Telegram bot access",
+    "configSchema": {
+        "type": "object",
+        "properties": {
+            "clientId": {
+                "type": "string",
+                "description": "Google OAuth Client ID"
+            },
+            "clientSecret": {
+                "type": "string",
+                "description": "Google OAuth Client Secret"
+            },
+            "redirectUri": {
+                "type": "string",
+                "description": "OAuth callback URI",
+                "default": "http://localhost:18789/auth/google/callback"
+            },
+            "allowedEmails": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                },
+                "description": "List of allowed email addresses (empty = allow all)"
+            },
+            "gatewayBaseUrl": {
+                "type": "string",
+                "description": "Base URL of the gateway for generating login links",
+                "default": "http://localhost:18789"
+            }
+        },
+        "additionalProperties": false
+    },
+    "uiHints": {
+        "clientId": {
+            "label": "Client ID",
+            "sensitive": false
+        },
+        "clientSecret": {
+            "label": "Client Secret",
+            "sensitive": true
+        },
+        "redirectUri": {
+            "label": "Redirect URI"
+        },
+        "allowedEmails": {
+            "label": "Allowed Emails",
+            "help": "Leave empty to allow any Google account"
+        },
+        "gatewayBaseUrl": {
+            "label": "Gateway Base URL"
+        }
+    }
+}

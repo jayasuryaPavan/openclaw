@@ -1,0 +1,100 @@
+{
+  "models": {
+    "providers": {
+      "deepseek": {
+        "baseUrl": "https://api.deepseek.com/v1",
+        "apiKey": "sk-901c8d113fb040c980f78b0f5c6cf267",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "deepseek-chat",
+            "name": "DeepSeek V3",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "deepseek/deepseek-chat"
+      },
+      "workspace": "c:/Work Space/Panda IOS/openclaw",
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      }
+    },
+    "list": [
+      {
+        "id": "panda",
+        "name": "Panda Chat",
+        "model": "deepseek/deepseek-chat"
+      }
+    ]
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto"
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "botToken": "8526730148:AAFDY4QouLSQ2h0sNzZKa1hMdHl6G-Fabps",
+      "groupPolicy": "allowlist",
+      "streamMode": "partial"
+    }
+  },
+  "gateway": {
+    "mode": "local",
+    "tailscale": {
+      "mode": "off"
+    },
+    "auth": {
+      "token": "25415d2e7014ed8afc5d00a7b464934477ef73512dffb2bb"
+    }
+  },
+  "discovery": {
+    "wideArea": {
+      "enabled": false
+    }
+  },
+  "tools": {
+    "profile": "coding",
+    "exec": {
+      "host": "gateway",
+      "security": "full",
+      "ask": "on-miss"
+    }
+  },
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "plugins": {
+    "entries": {
+      "telegram": {
+        "enabled": true
+      },
+      "google-oauth": {
+        "enabled": true
+      }
+    }
+  },
+  "meta": {
+    "lastTouchedVersion": "2026.2.6-3",
+    "lastTouchedAt": "2026-02-09T05:33:46.133Z"
+  }
+}
