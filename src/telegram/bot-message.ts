@@ -65,6 +65,7 @@ export const createTelegramMessageProcessor = (deps: TelegramMessageProcessorDep
       historyLimit,
       groupHistories,
       dmPolicy,
+      dmSystemPrompt: telegramCfg.dmSystemPrompt,
       allowFrom,
       groupAllowFrom,
       ackReactionScope,

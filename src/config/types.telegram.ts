@@ -30,8 +30,8 @@ export type TelegramInlineButtonsScope = "off" | "dm" | "group" | "all" | "allow
 export type TelegramCapabilitiesConfig =
   | string[]
   | {
-      inlineButtons?: TelegramInlineButtonsScope;
-    };
+    inlineButtons?: TelegramInlineButtonsScope;
+  };
 
 /** Custom command definition for Telegram bot menu. */
 export type TelegramCustomCommand = {
@@ -84,6 +84,8 @@ export type TelegramAccountConfig = {
   historyLimit?: number;
   /** Max DM turns to keep as history context. */
   dmHistoryLimit?: number;
+  /** Optional system prompt snippet for all DM conversations. */
+  dmSystemPrompt?: string;
   /** Per-DM config overrides keyed by user ID. */
   dms?: Record<string, DmConfig>;
   /** Outbound text chunk size (chars). Default: 4000. */

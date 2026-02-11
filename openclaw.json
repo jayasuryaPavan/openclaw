@@ -2,14 +2,14 @@
   "models": {
     "providers": {
       "deepseek": {
-        "baseUrl": "https://api.deepseek.com/v1",
+        "baseUrl": "https://api.deepseek.com",
         "apiKey": "sk-901c8d113fb040c980f78b0f5c6cf267",
         "api": "openai-completions",
         "models": [
           {
-            "id": "deepseek-chat",
-            "name": "DeepSeek V3",
-            "reasoning": false,
+            "id": "deepseek-reasoner",
+            "name": "DeepSeek R1",
+            "reasoning": true,
             "input": [
               "text"
             ],
@@ -20,7 +20,7 @@
               "cacheWrite": 0
             },
             "contextWindow": 200000,
-            "maxTokens": 8192
+            "maxTokens": 150
           }
         ]
       }
@@ -29,10 +29,11 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "deepseek/deepseek-chat"
+        "primary": "deepseek/deepseek-reasoner"
       },
-      "workspace": "c:/Work Space/Panda IOS/openclaw",
+      "workspace": "c:/Work Space/Panda Chat/openclaw",
       "maxConcurrent": 4,
+      "thinkingDefault": "off",
       "subagents": {
         "maxConcurrent": 8
       }
@@ -41,7 +42,7 @@
       {
         "id": "panda",
         "name": "Panda Chat",
-        "model": "deepseek/deepseek-chat"
+        "model": "deepseek/deepseek-reasoner"
       }
     ]
   },
@@ -55,7 +56,8 @@
       "dmPolicy": "pairing",
       "botToken": "8526730148:AAFDY4QouLSQ2h0sNzZKa1hMdHl6G-Fabps",
       "groupPolicy": "allowlist",
-      "streamMode": "partial"
+      "streamMode": "off",
+      "dmSystemPrompt": "CRITICAL: Respond ONLY in casual Telugu written in English script (Tenglish). Call the user 'pandu'. Keep under 10 words. No headers. No English replies. Occasional emoji at end allowed."
     }
   },
   "gateway": {
@@ -77,7 +79,18 @@
     "exec": {
       "host": "gateway",
       "security": "full",
-      "ask": "on-miss"
+      "ask": "always"
+    }
+  },
+  "browser": {
+    "enabled": true,
+    "headless": false,
+    "executablePath": "C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe",
+    "profiles": {
+      "brave": {
+        "cdpPort": 9222,
+        "color": "#FF4500"
+      }
     }
   },
   "messages": {
