@@ -1,0 +1,1 @@
+{"error":{"message":"FailoverError: No API key found for provider \"anthropic\". Auth store: C:\\Users\\jayas\\.openclaw\\agents\\main\\agent\\auth-profiles.json (agentDir: C:\\Users\\jayas\\.openclaw\\agents\\main\\agent). Configure auth for this agent (openclaw agents add <id>) or copy auth-profiles.json from the main agentDir.","type":"api_error"}}

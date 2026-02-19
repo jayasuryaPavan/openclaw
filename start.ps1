@@ -14,4 +14,7 @@ if (Test-Path ".env") {
     }
 }
 
+# Ensure Python is in PATH for capability checks
+$env:PATH = "C:\Python314;C:\Python314\Scripts;" + $env:PATH
+
 node scripts/run-node.mjs gateway

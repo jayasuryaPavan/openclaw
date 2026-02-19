@@ -242,7 +242,7 @@ function extractSherpaOnnxText(raw: string): string | null {
           return text.trim();
         }
       }
-    } catch {}
+    } catch { }
     return null;
   };
 
@@ -664,7 +664,7 @@ async function resolveCliOutput(params: {
       if (content.trim()) {
         return content.trim();
       }
-    } catch {}
+    } catch { }
   }
 
   if (commandId === "gemini") {
@@ -826,8 +826,8 @@ async function runProviderEntry(params: {
   const maxChars = resolveMaxChars({ capability, entry, cfg, config: params.config });
   const timeoutMs = resolveTimeoutMs(
     entry.timeoutSeconds ??
-      params.config?.timeoutSeconds ??
-      cfg.tools?.media?.[capability]?.timeoutSeconds,
+    params.config?.timeoutSeconds ??
+    cfg.tools?.media?.[capability]?.timeoutSeconds,
     DEFAULT_TIMEOUT_SECONDS[capability],
   );
   const prompt = resolvePrompt(
@@ -852,31 +852,31 @@ async function runProviderEntry(params: {
     const provider = getMediaUnderstandingProvider(providerId, params.providerRegistry);
     const result = provider?.describeImage
       ? await provider.describeImage({
-          buffer: media.buffer,
-          fileName: media.fileName,
-          mime: media.mime,
-          model: modelId,
-          provider: providerId,
-          prompt,
-          timeoutMs,
-          profile: entry.profile,
-          preferredProfile: entry.preferredProfile,
-          agentDir: params.agentDir,
-          cfg: params.cfg,
-        })
+        buffer: media.buffer,
+        fileName: media.fileName,
+        mime: media.mime,
+        model: modelId,
+        provider: providerId,
+        prompt,
+        timeoutMs,
+        profile: entry.profile,
+        preferredProfile: entry.preferredProfile,
+        agentDir: params.agentDir,
+        cfg: params.cfg,
+      })
       : await describeImageWithModel({
-          buffer: media.buffer,
-          fileName: media.fileName,
-          mime: media.mime,
-          model: modelId,
-          provider: providerId,
-          prompt,
-          timeoutMs,
-          profile: entry.profile,
-          preferredProfile: entry.preferredProfile,
-          agentDir: params.agentDir,
-          cfg: params.cfg,
-        });
+        buffer: media.buffer,
+        fileName: media.fileName,
+        mime: media.mime,
+        model: modelId,
+        provider: providerId,
+        prompt,
+        timeoutMs,
+        profile: entry.profile,
+        preferredProfile: entry.preferredProfile,
+        agentDir: params.agentDir,
+        cfg: params.cfg,
+      });
     return {
       kind: "image.description",
       attachmentIndex: params.attachmentIndex,
@@ -1008,8 +1008,8 @@ async function runCliEntry(params: {
   const maxChars = resolveMaxChars({ capability, entry, cfg, config: params.config });
   const timeoutMs = resolveTimeoutMs(
     entry.timeoutSeconds ??
-      params.config?.timeoutSeconds ??
-      cfg.tools?.media?.[capability]?.timeoutSeconds,
+    params.config?.timeoutSeconds ??
+    cfg.tools?.media?.[capability]?.timeoutSeconds,
     DEFAULT_TIMEOUT_SECONDS[capability],
   );
   const prompt = resolvePrompt(
@@ -1064,7 +1064,7 @@ async function runCliEntry(params: {
       model: command,
     };
   } finally {
-    await fs.rm(outputDir, { recursive: true, force: true }).catch(() => {});
+    await fs.rm(outputDir, { recursive: true, force: true }).catch(() => { });
   }
 }
 
@@ -1086,29 +1086,33 @@ async function runAttachmentEntries(params: {
   const attempts: MediaUnderstandingModelDecision[] = [];
   for (const entry of entries) {
     const entryType = entry.type ?? (entry.command ? "cli" : "provider");
+    console.log(`[DEBUG] runAttachmentEntries attempting model. capability=${capability} type=${entryType} provider=${entry.provider ?? entry.command}`);
     try {
       const result =
         entryType === "cli"
           ? await runCliEntry({
-              capability,
-              entry,
-              cfg: params.cfg,
-              ctx: params.ctx,
-              attachmentIndex: params.attachmentIndex,
-              cache: params.cache,
-              config: params.config,
-            })
+            capability,
+            entry,
+            cfg: params.cfg,
+            ctx: params.ctx,
+            attachmentIndex: params.attachmentIndex,
+            cache: params.cache,
+            config: params.config,
+          })
           : await runProviderEntry({
-              capability,
-              entry,
-              cfg: params.cfg,
-              ctx: params.ctx,
-              attachmentIndex: params.attachmentIndex,
-              cache: params.cache,
-              agentDir: params.agentDir,
-              providerRegistry: params.providerRegistry,
-              config: params.config,
-            });
+            capability,
+            entry,
+            cfg: params.cfg,
+            ctx: params.ctx,
+            attachmentIndex: params.attachmentIndex,
+            cache: params.cache,
+            agentDir: params.agentDir,
+            providerRegistry: params.providerRegistry,
+            config: params.config,
+          });
+
+      console.log(`[DEBUG] runAttachmentEntries result. capability=${capability} success=${Boolean(result)}`);
+
       if (result) {
         const decision = buildModelDecision({ entry, entryType, outcome: "success" });
         if (result.provider) {
@@ -1124,6 +1128,7 @@ async function runAttachmentEntries(params: {
         buildModelDecision({ entry, entryType, outcome: "skipped", reason: "empty output" }),
       );
     } catch (err) {
+      console.log(`[DEBUG] runAttachmentEntries error. capability=${capability} error=${String(err)}`);
       if (isMediaUnderstandingSkipError(err)) {
         attempts.push(
           buildModelDecision({
@@ -1168,6 +1173,9 @@ export async function runCapability(params: {
 }): Promise<RunCapabilityResult> {
   const { capability, cfg, ctx } = params;
   const config = params.config ?? cfg.tools?.media?.[capability];
+
+  console.log(`[DEBUG] runCapability start. capability=${capability} enabled=${config?.enabled !== false}`);
+
   if (config?.enabled === false) {
     return {
       outputs: [],
@@ -1181,6 +1189,9 @@ export async function runCapability(params: {
     attachments: params.media,
     policy: attachmentPolicy,
   });
+
+  console.log(`[DEBUG] runCapability selected. capability=${capability} selectedCount=${selected.length}`);
+
   if (selected.length === 0) {
     return {
       outputs: [],
@@ -1255,6 +1266,9 @@ export async function runCapability(params: {
       activeModel: params.activeModel,
     });
   }
+
+  console.log(`[DEBUG] runCapability entries. capability=${capability} resolvedEntries=${resolvedEntries.length}`);
+
   if (resolvedEntries.length === 0) {
     return {
       outputs: [],
@@ -1269,6 +1283,7 @@ export async function runCapability(params: {
   const outputs: MediaUnderstandingOutput[] = [];
   const attachmentDecisions: MediaUnderstandingDecision["attachments"] = [];
   for (const attachment of selected) {
+    console.log(`[DEBUG] runCapability processing attachment. capability=${capability} index=${attachment.index}`);
     const { output, attempts } = await runAttachmentEntries({
       capability,
       cfg,

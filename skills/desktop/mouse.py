@@ -2,6 +2,7 @@
 """Mouse control utility for desktop automation."""
 import sys
 import pyautogui
+pyautogui.FAILSAFE = False
 
 def main():
     if len(sys.argv) < 2:

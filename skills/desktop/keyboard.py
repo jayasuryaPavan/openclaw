@@ -2,6 +2,7 @@
 """Keyboard control utility for desktop automation."""
 import sys
 import pyautogui
+pyautogui.FAILSAFE = False
 
 # Media key mappings for pyautogui
 MEDIA_KEYS = {
@@ -85,6 +86,12 @@ def main():
                 print(f"Focused window: {win.title}")
             else:
                 print(f"No window found matching: {title}")
+                all_windows = gw.getAllWindows()
+                titles = [w.title for w in all_windows if w.title.strip()]
+                if titles:
+                    print("\nAvailable windows:")
+                    for t in sorted(set(titles)):
+                        print(f"  - {t}")
                 sys.exit(1)
         except ImportError:
             # Fallback: use pyautogui hotkey to alt-tab (less precise)

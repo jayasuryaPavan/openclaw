@@ -3,17 +3,14 @@ import { readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { emptyPluginConfigSchema } from "openclaw/plugin-sdk";
 
-// OAuth constants - decoded from pi-ai's base64 encoded values to stay in sync
-const decode = (s: string) => Buffer.from(s, "base64").toString();
-const CLIENT_ID = decode(
-  "MTA3MTAwNjA2MDU5MS10bWhzc2luMmgyMWxjcmUyMzV2dG9sb2poNGc0MDNlcC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbQ==",
-);
-const CLIENT_SECRET = decode("R09DU1BYLUs1OEZXUjQ4NkxkTEoxbUxCOHNYQzR6NnFEQWY=");
+// OAuth constants - retrieved from environment variables for security
+const CLIENT_ID = process.env.GOOGLE_ANTIGRAVITY_CLIENT_ID || "";
+const CLIENT_SECRET = process.env.GOOGLE_ANTIGRAVITY_CLIENT_SECRET || "";
 const REDIRECT_URI = "http://localhost:51121/oauth-callback";
 const AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
 const DEFAULT_PROJECT_ID = "rising-fact-p41fc";
-const DEFAULT_MODEL = "google-antigravity/claude-opus-4-6-thinking";
+const DEFAULT_MODEL = "google-antigravity/gemini-3-pro";
 
 const SCOPES = [
   "https://www.googleapis.com/auth/cloud-platform",
@@ -392,31 +389,42 @@ const antigravityPlugin = {
   name: "Google Antigravity Auth",
   description: "OAuth flow for Google Antigravity (Cloud Code Assist)",
   configSchema: emptyPluginConfigSchema(),
-  register(api) {
+  register(api: any) {
     api.registerProvider({
       id: "google-antigravity",
       label: "Google Antigravity",
       docsPath: "/providers/models",
-      aliases: ["antigravity"],
+      aliases: ["antigravity", "google-antigravity"],
+      capabilities: ["vision", "audio"],
       auth: [
         {
           id: "oauth",
           label: "Google OAuth",
           hint: "PKCE + localhost callback",
           kind: "oauth",
-          run: async (ctx) => {
+          async login(ctx: any) {
             const spin = ctx.prompter.progress("Starting Antigravity OAuth…");
+            if (!CLIENT_ID || !CLIENT_SECRET) {
+              spin.stop("Antigravity OAuth failed");
+              ctx.runtime.error(
+                "Missing GOOGLE_ANTIGRAVITY_CLIENT_ID or GOOGLE_ANTIGRAVITY_CLIENT_SECRET environment variables.",
+              );
+              return;
+            }
             try {
               const result = await loginAntigravity({
                 isRemote: ctx.isRemote,
                 openUrl: ctx.openUrl,
-                prompt: async (message) => String(await ctx.prompter.text({ message })),
+                prompt: async (message: string) =>
+                  String(await ctx.prompter.text({ message })),
                 note: ctx.prompter.note,
-                log: (message) => ctx.runtime.log(message),
+                log: (message: string) => ctx.runtime.log(message),
                 progress: spin,
               });
 
-              const profileId = `google-antigravity:${result.email ?? "default"}`;
+              const profileId = `google-antigravity:${
+                result.email ?? "default"
+              }`;
               return {
                 profiles: [
                   {

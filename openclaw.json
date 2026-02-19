@@ -1,9 +1,31 @@
 {
+  "meta": {
+    "lastTouchedVersion": "2026.2.9",
+    "lastTouchedAt": "2026-02-16T00:28:13.544Z"
+  },
+  "browser": {
+    "enabled": true,
+    "executablePath": "C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe",
+    "headless": false,
+    "profiles": {
+      "brave": {
+        "cdpPort": 9222,
+        "color": "#FF4500"
+      }
+    }
+  },
+  "auth": {
+    "profiles": {
+      "google-antigravity:jayasuryadeveloper09@gmail.com": {
+        "provider": "google-antigravity",
+        "mode": "oauth"
+      }
+    }
+  },
   "models": {
     "providers": {
       "deepseek": {
         "baseUrl": "https://api.deepseek.com",
-        "apiKey": "sk-901c8d113fb040c980f78b0f5c6cf267",
         "api": "openai-completions",
         "models": [
           {
@@ -20,7 +42,47 @@
               "cacheWrite": 0
             },
             "contextWindow": 200000,
-            "maxTokens": 150
+            "maxTokens": 8192
+          },
+          {
+            "id": "deepseek-chat",
+            "name": "DeepSeek V3",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 64000,
+            "maxTokens": 8192
+          }
+        ]
+      },
+      "google": {
+        "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
+        "api": "google-generative-ai",
+        "models": [
+          {
+            "id": "gemini-1.5-flash",
+            "name": "Gemini 1.5 Flash",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image",
+              "audio"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 1000000,
+            "maxTokens": 8192
           }
         ]
       }
@@ -29,22 +91,91 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "deepseek/deepseek-reasoner"
+        "primary": "google-antigravity/gemini-3-flash"
+      },
+      "imageModel": {
+        "primary": "google-antigravity/gemini-3-flash",
+        "fallbacks": [
+          "google-antigravity/gemini-3-pro-high"
+        ]
       },
       "workspace": "c:/Work Space/Panda Chat/openclaw",
-      "maxConcurrent": 4,
+      "compaction": {
+        "mode": "safeguard"
+      },
       "thinkingDefault": "off",
+      "maxConcurrent": 4,
       "subagents": {
-        "maxConcurrent": 8
+        "maxConcurrent": 8,
+        "model": "google-antigravity/gemini-3-flash"
       }
     },
     "list": [
       {
         "id": "panda",
         "name": "Panda Chat",
-        "model": "deepseek/deepseek-reasoner"
+        "model": {
+          "primary": "google-antigravity/gemini-3-flash",
+          "fallbacks": [
+            "google-antigravity/gemini-3-pro-low",
+            "google-antigravity/gemini-3-pro-high",
+            "deepseek/deepseek-chat"
+          ]
+        },
+        "subagents": {
+          "model": "google-antigravity/gemini-3-flash"
+        }
       }
     ]
+  },
+  "tools": {
+    "profile": "full",
+    "alsoAllow": [
+      "agency",
+      "1password",
+      "desktop",
+      "python",
+      "python.exe",
+      "node",
+      "npm",
+      "git",
+      "echo",
+      "dir",
+      "ls"
+    ],
+    "media": {
+      "audio": {
+        "enabled": true,
+        "models": [
+          {
+            "provider": "google-antigravity",
+            "model": "gemini-3-flash",
+            "capabilities": [
+              "audio"
+            ]
+          }
+        ]
+      }
+    },
+    "exec": {
+      "host": "gateway",
+      "security": "allowlist",
+      "ask": "on-miss",
+      "pathPrepend": [
+        "C:\\Python314",
+        "C:\\Python314\\Scripts"
+      ]
+    }
+  },
+  "messages": {
+    "ackReactionScope": "group-mentions",
+    "tts": {
+      "auto": "inbound",
+      "provider": "edge",
+      "edge": {
+        "voice": "en-US-ChristopherNeural"
+      }
+    }
   },
   "commands": {
     "native": "auto",
@@ -54,19 +185,9 @@
     "telegram": {
       "enabled": true,
       "dmPolicy": "pairing",
-      "botToken": "8526730148:AAFDY4QouLSQ2h0sNzZKa1hMdHl6G-Fabps",
       "groupPolicy": "allowlist",
-      "streamMode": "off",
-      "dmSystemPrompt": "CRITICAL: Respond ONLY in casual Telugu written in English script (Tenglish). Call the user 'pandu'. Keep under 10 words. No headers. No English replies. Occasional emoji at end allowed."
-    }
-  },
-  "gateway": {
-    "mode": "local",
-    "tailscale": {
-      "mode": "off"
-    },
-    "auth": {
-      "token": "25415d2e7014ed8afc5d00a7b464934477ef73512dffb2bb"
+      "dmSystemPrompt": "CRITICAL: Respond ONLY in casual Telugu written in English script (Tenglish). Call the user 'pandu'. Keep under 10 words. No headers. No English replies. Occasional emoji at end allowed.",
+      "streamMode": "off"
     }
   },
   "discovery": {
@@ -74,27 +195,35 @@
       "enabled": false
     }
   },
-  "tools": {
-    "profile": "coding",
-    "exec": {
-      "host": "gateway",
-      "security": "full",
-      "ask": "always"
-    }
-  },
-  "browser": {
-    "enabled": true,
-    "headless": false,
-    "executablePath": "C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe",
-    "profiles": {
-      "brave": {
-        "cdpPort": 9222,
-        "color": "#FF4500"
+  "gateway": {
+    "mode": "local",
+    "auth": {
+      "mode": "token"
+    },
+    "tailscale": {
+      "mode": "off"
+    },
+    "http": {
+      "endpoints": {
+        "chatCompletions": {
+          "enabled": true
+        }
       }
     }
   },
-  "messages": {
-    "ackReactionScope": "group-mentions"
+  "skills": {
+    "allowBundled": [
+      "agency",
+      "desktop",
+      "computer-use",
+      "1password",
+      "google-search"
+    ],
+    "entries": {
+      "agency": {
+        "enabled": true
+      }
+    }
   },
   "plugins": {
     "entries": {
@@ -102,12 +231,14 @@
         "enabled": true
       },
       "google-oauth": {
+        "enabled": false
+      },
+      "google-antigravity-auth": {
+        "enabled": true
+      },
+      "memory-core": {
         "enabled": true
       }
     }
-  },
-  "meta": {
-    "lastTouchedVersion": "2026.2.6-3",
-    "lastTouchedAt": "2026-02-09T05:33:46.133Z"
   }
 }

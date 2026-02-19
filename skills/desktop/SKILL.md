@@ -45,7 +45,19 @@ All commands must be run from this skill's directory.
 ```bash
 python screenshot.py output.png
 ```
-Captures the entire screen and saves to `output.png`.
+Captures the entire screen and saves to `output.png`. Outputs `MEDIA:./screenshots/output.png` for Telegram delivery.
+
+### Vision Analysis (See + Understand Screen)
+```bash
+# Take a screenshot AND analyze what's on screen
+python analyze.py "What do you see on screen?"
+python analyze.py "Is WhatsApp open? What is the latest message?"
+python analyze.py "What windows are open?"
+
+# Analyze an existing screenshot
+python analyze.py "Describe what you see" --screenshot screenshots/existing.png
+```
+Takes a screenshot and sends it to the vision model for analysis. Use this whenever you need to **understand** what's on screen, not just capture it. The output includes both `MEDIA:` for the image and the vision model's text analysis.
 
 ### Mouse Control
 ```bash

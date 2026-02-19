@@ -469,6 +469,8 @@ export async function applyMediaUnderstanding(params: {
   const providerRegistry = buildProviderRegistry(params.providers);
   const cache = createMediaAttachmentCache(attachments);
 
+  console.log(`[DEBUG] applyMediaUnderstanding start. attachments=${attachments.length} userText="${originalUserText || ""}"`);
+
   try {
     const tasks = CAPABILITY_ORDER.map((capability) => async () => {
       const config = cfg.tools?.media?.[capability];

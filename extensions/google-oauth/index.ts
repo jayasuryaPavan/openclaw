@@ -66,6 +66,9 @@ export default function register(api: PluginApi): void {
         api.logger.warn("Google OAuth plugin: Missing clientId or clientSecret. Plugin will not function.");
     }
 
+    // Graceful degradation: skip blocking when credentials are not configured
+    const isConfigured = !!(clientId && clientSecret);
+
     // Periodically clean up expired pending auth states
     setInterval(cleanupPendingAuth, 60_000);
 
@@ -223,6 +226,7 @@ export default function register(api: PluginApi): void {
 
     // Hook: Intercept messages from unauthenticated users
     api.on("message_received", (event: { from: string }, ctx: { channelId: string }) => {
+        if (!isConfigured) return; // Graceful degradation: allow all when no credentials
         const senderId = event.from;
         const channelId = ctx.channelId;
 
@@ -235,6 +239,7 @@ export default function register(api: PluginApi): void {
 
     // Hook: Override agent prompt for unauthenticated users
     api.on("before_agent_start", (event: { prompt: string }, ctx: { sessionKey?: string; agentId?: string }) => {
+        if (!isConfigured) return; // Graceful degradation: allow all when no credentials
         const sessionKey = ctx.sessionKey;
         if (!sessionKey) return;
 
