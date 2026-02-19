@@ -54,3 +54,9 @@ export function setSseHeaders(res: ServerResponse) {
   res.setHeader("Connection", "keep-alive");
   res.flushHeaders?.();
 }
+
+export function addSecurityHeaders(res: ServerResponse) {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("Referrer-Policy", "no-referrer");
+}

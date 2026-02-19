@@ -50,7 +50,7 @@ async function main() {
         await fs.writeFile(HASH_FILE, currentHash);
         console.log("A2UI bundle updated.");
     } catch (error) {
-        console.error("A2UI bundling failed.");
+        console.error("A2UI bundling failed.", error);
         process.exit(1);
     }
 }
@@ -96,4 +96,4 @@ async function computeHash(inputs) {
     return hash.digest("hex");
 }
 
-main();
+void main();
