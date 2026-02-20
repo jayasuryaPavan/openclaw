@@ -75,6 +75,7 @@ USER.md
 .serena/
 
 # Screenshots and images
+screenshots/
 *.png
 
 # Agent credentials and memory (NEVER COMMIT)

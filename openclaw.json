@@ -5,11 +5,11 @@
   },
   "browser": {
     "enabled": true,
-    "executablePath": "C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe",
+    "executablePath": "C:/Program Files/Google/Chrome/Application/chrome.exe",
     "headless": false,
     "profiles": {
-      "brave": {
-        "cdpPort": 9222,
+      "chrome-main": {
+        "cdpPort": 9223,
         "color": "#FF4500"
       }
     }
@@ -19,6 +19,10 @@
       "google-antigravity:jayasuryadeveloper09@gmail.com": {
         "provider": "google-antigravity",
         "mode": "oauth"
+      },
+      "deepseek:default": {
+        "provider": "deepseek",
+        "mode": "api_key"
       }
     }
   },
@@ -26,6 +30,8 @@
     "providers": {
       "deepseek": {
         "baseUrl": "https://api.deepseek.com",
+        "apiKey": "${DEEPSEEK_API_KEY}",
+        "auth": "api-key",
         "api": "openai-completions",
         "models": [
           {
@@ -64,6 +70,8 @@
       },
       "google": {
         "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
+        "apiKey": "${GOOGLE_API_KEY}",
+        "auth": "api-key",
         "api": "google-generative-ai",
         "models": [
           {
@@ -96,13 +104,17 @@
       "imageModel": {
         "primary": "google-antigravity/gemini-3-flash",
         "fallbacks": [
-          "google-antigravity/gemini-3-pro-high"
+          "google-antigravity/gemini-3-1-pro-high",
+          "google-antigravity/gemini-3-1-pro",
+          "deepseek/deepseek-reasoner"
         ]
       },
       "workspace": "c:/Work Space/Panda Chat/openclaw",
       "compaction": {
-        "mode": "safeguard"
+        "mode": "safeguard",
+        "maxHistoryShare": 0.2
       },
+      "contextTokens": 200000,
       "thinkingDefault": "off",
       "maxConcurrent": 4,
       "subagents": {
@@ -114,12 +126,15 @@
       {
         "id": "panda",
         "name": "Panda Chat",
+        "skills": [
+          "desktop",
+          "computer-use"
+        ],
         "model": {
           "primary": "google-antigravity/gemini-3-flash",
           "fallbacks": [
-            "google-antigravity/gemini-3-pro-low",
-            "google-antigravity/gemini-3-pro-high",
-            "deepseek/deepseek-chat"
+            "deepseek/deepseek-chat",
+            "google-antigravity/gemini-3-1-pro"
           ]
         },
         "subagents": {
@@ -131,9 +146,7 @@
   "tools": {
     "profile": "full",
     "alsoAllow": [
-      "agency",
-      "1password",
-      "desktop",
+      "group:runtime",
       "python",
       "python.exe",
       "node",
@@ -160,7 +173,7 @@
     "exec": {
       "host": "gateway",
       "security": "allowlist",
-      "ask": "on-miss",
+      "ask": "off",
       "pathPrepend": [
         "C:\\Python314",
         "C:\\Python314\\Scripts"
@@ -186,7 +199,7 @@
       "enabled": true,
       "dmPolicy": "pairing",
       "groupPolicy": "allowlist",
-      "dmSystemPrompt": "CRITICAL: Respond ONLY in casual Telugu written in English script (Tenglish). Call the user 'pandu'. Keep under 10 words. No headers. No English replies. Occasional emoji at end allowed.",
+      "dmSystemPrompt": "CRITICAL: Respond ONLY in casual Telugu written in English script (Tenglish). Call the user 'pandu'. Keep under 10 words. No headers. No English replies. Occasional emoji allowed. COMMON TASKS: If asked to 'check email', use desktop skill to open Gmail. If asked 'review code', ask for the file path.",
       "streamMode": "off"
     }
   },

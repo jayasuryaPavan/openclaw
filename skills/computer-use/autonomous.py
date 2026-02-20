@@ -21,29 +21,48 @@ KEYBOARD_SCRIPT = DESKTOP_SKILL_DIR / "keyboard.py"
 
 # Gateway Configuration (read from openclaw.json)
 def get_gateway_config():
-    """Read gateway configuration from openclaw.json."""
-    config_path = OPENCLAW_ROOT / "openclaw.json"
-    default_url = "http://localhost:18789/v1"
-    default_token = ""
+    """Read gateway configuration."""
+    url = "http://localhost:18789/v1"
     
-    if not config_path.exists():
-        print(f"Config not found at {config_path}, using defaults")
-        return default_url, default_token
-        
-    try:
-        with open(config_path) as f:
-            config = json.load(f)
-            
-            # Get token from gateway.auth.token
-            token = config.get("gateway", {}).get("auth", {}).get("token", default_token)
-            
-            # Gateway API is always on port 18789 for /v1 endpoint
-            url = default_url
-            
-            return url, token
-    except Exception as e:
-        print(f"Error reading config: {e}, using defaults")
-        return default_url, default_token
+    # 1. Try environment variable first (highest priority)
+    token = os.environ.get("OPENCLAW_GATEWAY_TOKEN")
+    if token:
+        return url, token.strip().strip('"').strip("'")
+
+    # 2. Try reading .env from root (security best practice)
+    env_path = OPENCLAW_ROOT / ".env"
+    if env_path.exists():
+        try:
+            with open(env_path) as f:
+                for line in f:
+                    if line.startswith("OPENCLAW_GATEWAY_TOKEN="):
+                        token = line.split("=", 1)[1].strip().strip('"').strip("'")
+                        if token:
+                            return url, token
+        except Exception:
+            pass
+
+    # 3. Fallback to searching openclaw.json in multiple locations
+    config_paths = [
+        OPENCLAW_ROOT / "openclaw.json",
+        Path.home() / ".openclaw" / "openclaw.json",
+        Path("C:/Users/jayas/.openclaw/openclaw.json")
+    ]
+    
+    for config_path in config_paths:
+        if config_path.exists():
+            try:
+                with open(config_path) as f:
+                    config = json.load(f)
+                    token = config.get("gateway", {}).get("auth", {}).get("token")
+                    if token:
+                        print(f"Found token in config at {config_path}")
+                        return url, token
+            except Exception as e:
+                print(f"Error reading config at {config_path}: {e}")
+                
+    print("Config token not found, using empty default")
+    return url, ""
 
 GATEWAY_URL, GATEWAY_TOKEN = get_gateway_config()
 MODEL_ID = "google-antigravity/gemini-3-pro-high"
