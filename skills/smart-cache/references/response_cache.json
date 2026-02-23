@@ -1,0 +1,232 @@
+{
+  "version": 1,
+  "description": "Panda Chat Smart Cache — local response patterns for instant replies",
+  "categories": {
+    "greeting": {
+      "patterns": [
+        "hi",
+        "hello",
+        "hey",
+        "hii",
+        "hiii",
+        "em undi",
+        "ela unnav",
+        "ela undi",
+        "namaste",
+        "yo",
+        "sup",
+        "good morning",
+        "good evening",
+        "good night",
+        "morning",
+        "evening",
+        "em undi bro",
+        "em undi ra"
+      ],
+      "responses": [
+        "Ey pandu! Em plan? 😎",
+        "Bagundi pandu! Cheppu em kavali? 🐼",
+        "Yo pandu! Ready ga unna! 💪",
+        "Heyy! Em help kavali cheppu 😄"
+      ],
+      "mode": "random"
+    },
+    "farewell": {
+      "patterns": [
+        "bye",
+        "goodbye",
+        "see you",
+        "later",
+        "veltunna",
+        "pothunna",
+        "tata",
+        "good night",
+        "night night",
+        "cya"
+      ],
+      "responses": [
+        "Sare pandu, bye! 👋",
+        "Okay pandu, take care! 🐼",
+        "Cya later pandu! ✌️"
+      ],
+      "mode": "random"
+    },
+    "thanks": {
+      "patterns": [
+        "thanks",
+        "thank you",
+        "thankyou",
+        "thx",
+        "thanks bro",
+        "thanks anna",
+        "thanks ra",
+        "ty",
+        "appreciate it",
+        "nandhi"
+      ],
+      "responses": [
+        "Anytime pandu! 😊",
+        "Enti ledu ra, naa duty! 🐼",
+        "Welcome pandu! ✨",
+        "👍"
+      ],
+      "mode": "random"
+    },
+    "acknowledgment": {
+      "patterns": [
+        "ok",
+        "okay",
+        "alright",
+        "fine",
+        "sure",
+        "sare",
+        "sari",
+        "hmm",
+        "hmmm",
+        "got it",
+        "understood",
+        "cool",
+        "nice"
+      ],
+      "responses": [
+        "👍",
+        "Sare pandu! 😊",
+        "✅"
+      ],
+      "mode": "random"
+    },
+    "status_check": {
+      "patterns": [
+        "are you there",
+        "alive aa",
+        "panda",
+        "are you working",
+        "you there",
+        "unnav aa",
+        "levaa",
+        "ey panda"
+      ],
+      "responses": [
+        "Undha pandu! Cheppu! 🐼",
+        "Yes ra, ready! 💪",
+        "Alive and kicking pandu! 😎"
+      ],
+      "mode": "random"
+    },
+    "capabilities": {
+      "patterns": [
+        "what can you do",
+        "em chestav",
+        "help",
+        "em cheyagalav",
+        "features",
+        "nee skills enti"
+      ],
+      "responses": [
+        "Pandu, nenu chala chestha:\n• 💬 Chat — Tenglish lo matladtha\n• 📧 Email — Gmail check cheytha\n• 🔍 Search — Google lo search cheytha\n• ⏰ Reminders — Gurthu cheptha\n• 🖥️ Desktop — Apps open cheytha\n• 🧠 NLP — Nee mood analyze cheytha\n\nCheppu em kavali!"
+      ],
+      "mode": "first"
+    },
+    "open_gmail": {
+      "patterns": [
+        "check email",
+        "check mail",
+        "open gmail",
+        "email check chey",
+        "mail chupinchu",
+        "gmail open chey",
+        "inbox chey"
+      ],
+      "responses": [
+        "Gmail open chesthunna pandu! 📧"
+      ],
+      "mode": "first",
+      "action": "desktop:open_url:https://mail.google.com"
+    },
+    "open_youtube": {
+      "patterns": [
+        "open youtube",
+        "youtube open chey",
+        "youtube pettuu"
+      ],
+      "responses": [
+        "YouTube open chesthunna pandu! 🎬"
+      ],
+      "mode": "first",
+      "action": "desktop:open_url:https://youtube.com"
+    },
+    "insult_playful": {
+      "patterns": [
+        "stupid",
+        "dumb",
+        "useless",
+        "bokka",
+        "nee valla em kaadu",
+        "waste fellow",
+        "donkey",
+        "gadida"
+      ],
+      "responses": [
+        "Ayyo pandu, hurt aithunna! 😢 ...joke just. Cheppu em kavali 😏",
+        "Adi kaaadu pandu, nenu smart! Prove chesthaa cheppu 💪",
+        "Haha okay pandu, nee wish 😝"
+      ],
+      "mode": "random"
+    },
+    "compliment": {
+      "patterns": [
+        "you're smart",
+        "good job",
+        "nice work",
+        "baaga chesav",
+        "super chesav",
+        "masthu",
+        "well done",
+        "nuvvu best",
+        "thop"
+      ],
+      "responses": [
+        "Thanks pandu! Nee valla ne! 😊🐼",
+        "Adi mana teamwork pandu! ✨",
+        "Hehe, thanks ra! 💪"
+      ],
+      "mode": "random"
+    },
+    "time_check": {
+      "patterns": [
+        "what time",
+        "time enti",
+        "time cheppu",
+        "ippudu time",
+        "current time"
+      ],
+      "responses": [],
+      "mode": "passthrough",
+      "note": "Time queries need live data — pass to LLM"
+    },
+    "weather": {
+      "patterns": [
+        "weather",
+        "weather ila undi",
+        "varshaam",
+        "rain vastunda",
+        "temp enti"
+      ],
+      "responses": [],
+      "mode": "passthrough",
+      "note": "Weather needs live data — pass to LLM"
+    }
+  },
+  "settings": {
+    "min_confidence": 0.7,
+    "fuzzy_threshold": 0.8,
+    "learn_after_miss": true,
+    "stats_enabled": true
+  },
+  "stats": {
+    "total_lookups": 7,
+    "cache_hits": 4,
+    "cache_misses": 3,
+    "last_reset": null
+  }
+}

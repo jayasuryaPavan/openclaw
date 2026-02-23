@@ -1,0 +1,18 @@
+{
+  "runs": [
+    {
+      "timestamp": "2026-02-23T05:40:57.826314+00:00",
+      "epochs": 100,
+      "samples": 50,
+      "final_loss": 0.503775,
+      "initial_loss": 1.527122
+    },
+    {
+      "timestamp": "2026-02-23T05:41:39.673905+00:00",
+      "epochs": 200,
+      "samples": 50,
+      "final_loss": 0.41709,
+      "initial_loss": 1.501371
+    }
+  ]
+}

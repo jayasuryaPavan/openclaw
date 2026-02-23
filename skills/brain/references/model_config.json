@@ -1,0 +1,39 @@
+{
+    "architecture": {
+        "input_size": 50,
+        "hidden_size": 24,
+        "output_heads": {
+            "intent": 8,
+            "sentiment": 3,
+            "preference": 5
+        },
+        "activation": "relu",
+        "learning_rate": 0.01,
+        "epochs": 100
+    },
+    "intent_labels": [
+        "GREETING",
+        "FAREWELL",
+        "REMINDER",
+        "SEARCH",
+        "HELP",
+        "WEATHER",
+        "EMAIL",
+        "GENERAL"
+    ],
+    "sentiment_labels": [
+        "NEGATIVE",
+        "NEUTRAL",
+        "POSITIVE"
+    ],
+    "preference_labels": [
+        "TECH",
+        "ENTERTAINMENT",
+        "PRODUCTIVITY",
+        "SOCIAL",
+        "LEARNING"
+    ],
+    "vocabulary_size": 50,
+    "version": 2,
+    "description": "Panda Brain v2 — lightweight neural network for intent, sentiment, and preference classification"
+}

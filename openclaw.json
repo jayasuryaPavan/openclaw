@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.2.9",
-    "lastTouchedAt": "2026-02-16T00:28:13.544Z"
+    "lastTouchedAt": "2026-02-23T03:16:40.667Z"
   },
   "browser": {
     "enabled": true,
@@ -30,7 +30,7 @@
     "providers": {
       "deepseek": {
         "baseUrl": "https://api.deepseek.com",
-        "apiKey": "${DEEPSEEK_API_KEY}",
+        "apiKey": "sk-901c8d113fb040c980f78b0f5c6cf267",
         "auth": "api-key",
         "api": "openai-completions",
         "models": [
@@ -70,7 +70,7 @@
       },
       "google": {
         "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
-        "apiKey": "${GOOGLE_API_KEY}",
+        "apiKey": "AIzaSyBrZ1V5AhawGY_UDaVLDHUe8JkH7pmqzMA",
         "auth": "api-key",
         "api": "google-generative-ai",
         "models": [
@@ -105,16 +105,16 @@
         "primary": "google-antigravity/gemini-3-flash",
         "fallbacks": [
           "google-antigravity/gemini-3-1-pro-high",
-          "google-antigravity/gemini-3-1-pro",
+          "google-antigravity/gemini-3-1-pro-low",
           "deepseek/deepseek-reasoner"
         ]
       },
       "workspace": "c:/Work Space/Panda Chat/openclaw",
+      "contextTokens": 200000,
       "compaction": {
         "mode": "safeguard",
         "maxHistoryShare": 0.2
       },
-      "contextTokens": 200000,
       "thinkingDefault": "off",
       "maxConcurrent": 4,
       "subagents": {
@@ -126,17 +126,18 @@
       {
         "id": "panda",
         "name": "Panda Chat",
-        "skills": [
-          "desktop",
-          "computer-use"
-        ],
         "model": {
           "primary": "google-antigravity/gemini-3-flash",
           "fallbacks": [
             "deepseek/deepseek-chat",
-            "google-antigravity/gemini-3-1-pro"
+            "google-antigravity/gemini-3-1-pro-high",
+            "google-antigravity/gemini-3-1-pro-low"
           ]
         },
+        "skills": [
+          "desktop",
+          "computer-use"
+        ],
         "subagents": {
           "model": "google-antigravity/gemini-3-flash"
         }
@@ -192,7 +193,8 @@
   },
   "commands": {
     "native": "auto",
-    "nativeSkills": "auto"
+    "nativeSkills": "auto",
+    "restart": true
   },
   "channels": {
     "telegram": {

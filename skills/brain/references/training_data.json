@@ -1,0 +1,305 @@
+{
+    "version": 2,
+    "samples": [
+        {
+            "text": "hi panda",
+            "intent": "GREETING",
+            "sentiment": "POSITIVE",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "hello",
+            "intent": "GREETING",
+            "sentiment": "NEUTRAL",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "em undi",
+            "intent": "GREETING",
+            "sentiment": "NEUTRAL",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "ela unnav",
+            "intent": "GREETING",
+            "sentiment": "POSITIVE",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "namaste",
+            "intent": "GREETING",
+            "sentiment": "POSITIVE",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "hey pandu",
+            "intent": "GREETING",
+            "sentiment": "POSITIVE",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "yo bro",
+            "intent": "GREETING",
+            "sentiment": "POSITIVE",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "bye panda",
+            "intent": "FAREWELL",
+            "sentiment": "NEUTRAL",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "veltunna",
+            "intent": "FAREWELL",
+            "sentiment": "NEUTRAL",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "good night",
+            "intent": "FAREWELL",
+            "sentiment": "POSITIVE",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "tata",
+            "intent": "FAREWELL",
+            "sentiment": "NEUTRAL",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "see you later",
+            "intent": "FAREWELL",
+            "sentiment": "POSITIVE",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "remind me to call mom",
+            "intent": "REMINDER",
+            "sentiment": "NEUTRAL",
+            "preference": "PRODUCTIVITY"
+        },
+        {
+            "text": "gurthu pettu meeting tomorrow",
+            "intent": "REMINDER",
+            "sentiment": "NEUTRAL",
+            "preference": "PRODUCTIVITY"
+        },
+        {
+            "text": "set alarm for 7am",
+            "intent": "REMINDER",
+            "sentiment": "NEUTRAL",
+            "preference": "PRODUCTIVITY"
+        },
+        {
+            "text": "remember to buy groceries",
+            "intent": "REMINDER",
+            "sentiment": "NEUTRAL",
+            "preference": "PRODUCTIVITY"
+        },
+        {
+            "text": "reminder chey",
+            "intent": "REMINDER",
+            "sentiment": "NEUTRAL",
+            "preference": "PRODUCTIVITY"
+        },
+        {
+            "text": "search for python tutorials",
+            "intent": "SEARCH",
+            "sentiment": "NEUTRAL",
+            "preference": "LEARNING"
+        },
+        {
+            "text": "google chey neural networks",
+            "intent": "SEARCH",
+            "sentiment": "NEUTRAL",
+            "preference": "TECH"
+        },
+        {
+            "text": "find best restaurants",
+            "intent": "SEARCH",
+            "sentiment": "POSITIVE",
+            "preference": "ENTERTAINMENT"
+        },
+        {
+            "text": "who is elon musk",
+            "intent": "SEARCH",
+            "sentiment": "NEUTRAL",
+            "preference": "LEARNING"
+        },
+        {
+            "text": "evaru cheppara",
+            "intent": "SEARCH",
+            "sentiment": "NEUTRAL",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "help me with code",
+            "intent": "HELP",
+            "sentiment": "NEUTRAL",
+            "preference": "TECH"
+        },
+        {
+            "text": "em cheyali",
+            "intent": "HELP",
+            "sentiment": "NEUTRAL",
+            "preference": "LEARNING"
+        },
+        {
+            "text": "how to install python",
+            "intent": "HELP",
+            "sentiment": "NEUTRAL",
+            "preference": "TECH"
+        },
+        {
+            "text": "cheyyi please",
+            "intent": "HELP",
+            "sentiment": "NEUTRAL",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "assist me",
+            "intent": "HELP",
+            "sentiment": "NEUTRAL",
+            "preference": "PRODUCTIVITY"
+        },
+        {
+            "text": "weather ela undi",
+            "intent": "WEATHER",
+            "sentiment": "NEUTRAL",
+            "preference": "PRODUCTIVITY"
+        },
+        {
+            "text": "rain vastunda",
+            "intent": "WEATHER",
+            "sentiment": "NEUTRAL",
+            "preference": "PRODUCTIVITY"
+        },
+        {
+            "text": "temperature enti",
+            "intent": "WEATHER",
+            "sentiment": "NEUTRAL",
+            "preference": "PRODUCTIVITY"
+        },
+        {
+            "text": "whats the weather",
+            "intent": "WEATHER",
+            "sentiment": "NEUTRAL",
+            "preference": "PRODUCTIVITY"
+        },
+        {
+            "text": "check email",
+            "intent": "EMAIL",
+            "sentiment": "NEUTRAL",
+            "preference": "PRODUCTIVITY"
+        },
+        {
+            "text": "gmail open chey",
+            "intent": "EMAIL",
+            "sentiment": "NEUTRAL",
+            "preference": "PRODUCTIVITY"
+        },
+        {
+            "text": "inbox lo em undi",
+            "intent": "EMAIL",
+            "sentiment": "NEUTRAL",
+            "preference": "PRODUCTIVITY"
+        },
+        {
+            "text": "mail chupinchu",
+            "intent": "EMAIL",
+            "sentiment": "NEUTRAL",
+            "preference": "PRODUCTIVITY"
+        },
+        {
+            "text": "nuvvu chala slow",
+            "intent": "GENERAL",
+            "sentiment": "NEGATIVE",
+            "preference": "TECH"
+        },
+        {
+            "text": "worst app ever",
+            "intent": "GENERAL",
+            "sentiment": "NEGATIVE",
+            "preference": "TECH"
+        },
+        {
+            "text": "bokka la undi",
+            "intent": "GENERAL",
+            "sentiment": "NEGATIVE",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "waste fellow",
+            "intent": "GENERAL",
+            "sentiment": "NEGATIVE",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "super chesav",
+            "intent": "GENERAL",
+            "sentiment": "POSITIVE",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "baaga chesav",
+            "intent": "GENERAL",
+            "sentiment": "POSITIVE",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "thop bro",
+            "intent": "GENERAL",
+            "sentiment": "POSITIVE",
+            "preference": "SOCIAL"
+        },
+        {
+            "text": "masthu undhi",
+            "intent": "GENERAL",
+            "sentiment": "POSITIVE",
+            "preference": "ENTERTAINMENT"
+        },
+        {
+            "text": "play some music",
+            "intent": "GENERAL",
+            "sentiment": "POSITIVE",
+            "preference": "ENTERTAINMENT"
+        },
+        {
+            "text": "open youtube",
+            "intent": "GENERAL",
+            "sentiment": "NEUTRAL",
+            "preference": "ENTERTAINMENT"
+        },
+        {
+            "text": "show me anime",
+            "intent": "GENERAL",
+            "sentiment": "POSITIVE",
+            "preference": "ENTERTAINMENT"
+        },
+        {
+            "text": "train the model",
+            "intent": "GENERAL",
+            "sentiment": "NEUTRAL",
+            "preference": "TECH"
+        },
+        {
+            "text": "update the code",
+            "intent": "GENERAL",
+            "sentiment": "NEUTRAL",
+            "preference": "TECH"
+        },
+        {
+            "text": "neural network build chey",
+            "intent": "GENERAL",
+            "sentiment": "NEUTRAL",
+            "preference": "TECH"
+        },
+        {
+            "text": "machine learning explain chey",
+            "intent": "GENERAL",
+            "sentiment": "NEUTRAL",
+            "preference": "LEARNING"
+        }
+    ]
+}

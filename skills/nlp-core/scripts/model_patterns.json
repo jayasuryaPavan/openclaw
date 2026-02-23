@@ -1,0 +1,116 @@
+{
+  "intent_patterns": {
+    "REMINDER": [
+      "to",
+      "remind",
+      "me",
+      "buy",
+      "milk",
+      "gurthu",
+      "pettu",
+      "repu",
+      "call",
+      "cheyali"
+    ],
+    "WEATHER": [
+      "whats",
+      "the",
+      "weather",
+      "like",
+      "varshaam",
+      "vastunda",
+      "is",
+      "it",
+      "raining",
+      "today"
+    ],
+    "SEARCH": [
+      "search",
+      "for",
+      "ai",
+      "news",
+      "who",
+      "is",
+      "dhoni",
+      "google",
+      "chey",
+      "idi"
+    ],
+    "GREETING": [
+      "hi",
+      "there",
+      "hello",
+      "panda",
+      "em",
+      "undi",
+      "bro"
+    ],
+    "HELP": [
+      "help",
+      "me",
+      "with",
+      "this",
+      "em",
+      "cheyali",
+      "idi"
+    ],
+    "NLP_DISCUSSION": [
+      "neural",
+      "network",
+      "gurinchi",
+      "cheppu"
+    ],
+    "EMAIL_CHECK": [
+      "check",
+      "my",
+      "email"
+    ],
+    "CALENDAR_ADD": [
+      "schedule",
+      "meeting",
+      "tomorrow"
+    ],
+    "TASK_UPDATE": [
+      "update",
+      "my",
+      "task",
+      "status"
+    ]
+  },
+  "sentiment_words": {
+    "POSITIVE": [
+      "chala",
+      "bagundi",
+      "super",
+      "ga",
+      "chesav",
+      "masthu",
+      "undhi",
+      "bro",
+      "thanks",
+      "anna",
+      "great",
+      "job"
+    ],
+    "NEGATIVE": [
+      "nv",
+      "chala",
+      "slow",
+      "worst",
+      "ga",
+      "undi",
+      "pani",
+      "kaadu",
+      "idi",
+      "bokka",
+      "la",
+      "this",
+      "is",
+      "terrible"
+    ]
+  },
+  "training_samples": {
+    "intents": 9,
+    "sentiments": 3
+  }
+}

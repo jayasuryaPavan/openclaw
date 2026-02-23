@@ -1,0 +1,17 @@
+{
+  "last_message_at": "2026-02-23T01:47:13.498370+00:00",
+  "last_checkin_at": null,
+  "chat_id": null,
+  "inactivity_hours": 12,
+  "checkin_messages": [
+    "Ey pandu! 12 hours ayyindhi em matladukoledu. Anta okay aa? 🤔🐼",
+    "Pandu! Chala sepu ayyindhi... em chesthunnav? Okay aa? 💭",
+    "Ey! Ekkadunnav pandu? 12 hours ga silent ga unnav... 😟🐼",
+    "Pandu check-in: Em undi ra? Busy aa? Miss avthunna 😅🐼"
+  ],
+  "sleep_hours": {
+    "start": 23,
+    "end": 7,
+    "note": "Don't send check-ins between 11 PM and 7 AM"
+  }
+}
