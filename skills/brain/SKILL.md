@@ -63,6 +63,8 @@ scripts/predict.py --learn "ey pandu" --intent GREETING --sentiment POSITIVE
 
 ### scripts/
 - `brain_core.py`: Pure-Python neural network engine (multi-head, SGD+momentum, online learning)
+- `brain_vision.py`: Vision module — classifies image type, content, and quality from metadata
+- `brain_validator.py`: Skill quality scorer — grades skills on 15 dimensions (A-F grading)
 - `train.py`: Training pipeline with logging and quick-test
 - `predict.py`: Prediction and online learning CLI
 

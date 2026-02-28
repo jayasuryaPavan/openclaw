@@ -136,7 +136,8 @@
         },
         "skills": [
           "desktop",
-          "computer-use"
+          "computer-use",
+          "audio-core"
         ],
         "subagents": {
           "model": "google-antigravity/gemini-3-flash"
@@ -155,14 +156,15 @@
       "git",
       "echo",
       "dir",
-      "ls"
+      "ls",
+      "transcribe_whisper.py"
     ],
     "media": {
       "audio": {
         "enabled": true,
         "models": [
           {
-            "provider": "google-antigravity",
+            "provider": "google",
             "model": "gemini-3-flash",
             "capabilities": [
               "audio"
@@ -187,7 +189,7 @@
       "auto": "inbound",
       "provider": "edge",
       "edge": {
-        "voice": "en-US-ChristopherNeural"
+        "voice": "te-IN-ShrutiNeural"
       }
     }
   },
@@ -201,7 +203,7 @@
       "enabled": true,
       "dmPolicy": "pairing",
       "groupPolicy": "allowlist",
-      "dmSystemPrompt": "CRITICAL: Respond ONLY in casual Telugu written in English script (Tenglish). Call the user 'pandu'. Keep under 10 words. No headers. No English replies. Occasional emoji allowed. COMMON TASKS: If asked to 'check email', use desktop skill to open Gmail. If asked 'review code', ask for the file path.",
+      "dmSystemPrompt": "CRITICAL: Respond ONLY in casual Telugu written in the native Telugu script (తెలుగు లిపి). Do NOT use English letters for Telugu. Call the user 'pandu'. Keep under 10 words. No headers. No English replies. Occasional emoji allowed. COMMON TASKS: If asked to 'check email', use desktop skill to open Gmail. If asked 'review code', ask for the file path.",
       "streamMode": "off"
     }
   },
@@ -232,7 +234,8 @@
       "desktop",
       "computer-use",
       "1password",
-      "google-search"
+      "google-search",
+      "audio-core"
     ],
     "entries": {
       "agency": {

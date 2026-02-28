@@ -33,7 +33,10 @@ def main():
         try:
             screenshot = pyautogui.screenshot()
             screenshot.save(output_path)
-            print(f"Screenshot saved to {output_path}")
+            
+            # Output MEDIA: token with relative path (expected by OpenClaw engine for Telegram delivery)
+            rel_path = os.path.relpath(output_path, openclaw_root).replace("\\", "/")
+            print(f"MEDIA:./{rel_path}")
             return
         except OSError as e:
             if attempt < max_retries - 1:
