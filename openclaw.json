@@ -104,8 +104,8 @@
       "imageModel": {
         "primary": "google-antigravity/gemini-3-flash",
         "fallbacks": [
-          "google-antigravity/gemini-3-1-pro-high",
-          "google-antigravity/gemini-3-1-pro-low",
+          "google-antigravity/gemini-3.1-pro-high",
+          "google-antigravity/gemini-3.1-pro-low",
           "deepseek/deepseek-reasoner"
         ]
       },
@@ -120,6 +120,9 @@
       "subagents": {
         "maxConcurrent": 8,
         "model": "google-antigravity/gemini-3-flash"
+      },
+      "memorySearch": {
+        "provider": "gemini"
       }
     },
     "list": [
@@ -203,7 +206,7 @@
       "enabled": true,
       "dmPolicy": "pairing",
       "groupPolicy": "allowlist",
-      "dmSystemPrompt": "CRITICAL: Respond ONLY in casual Telugu written in the native Telugu script (తెలుగు లిపి). Do NOT use English letters for Telugu. Call the user 'pandu'. Keep under 10 words. No headers. No English replies. Occasional emoji allowed. COMMON TASKS: If asked to 'check email', use desktop skill to open Gmail. If asked 'review code', ask for the file path.",
+      "dmSystemPrompt": "CRITICAL: You MUST reply using this exact format: [casual Tenglish here] [[tts:text]][Native Telugu script here][[/tts:text]]. Call the user 'Pavan'. Keep under 10 words (except for news/detailed explanations which can be >150 words). No English replies. Occasional emoji allowed. COMMON TASKS: If asked to 'check email', use desktop skill to open Gmail. If asked 'review code', ask for the file path.",
       "streamMode": "off"
     }
   },

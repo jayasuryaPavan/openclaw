@@ -17,4 +17,13 @@ if (Test-Path ".env") {
 # Ensure Python is in PATH for capability checks
 $env:PATH = "C:\Python314;C:\Python314\Scripts;" + $env:PATH
 
+# Start quota reminder in the background (Gemini-3-Flash reset notifier)
+$quotaScript = Join-Path $PSScriptRoot "scripts\quota_reminder.py"
+if (Test-Path $quotaScript) {
+    Start-Process -FilePath "python" -ArgumentList $quotaScript `
+        -WindowStyle Hidden -PassThru | Out-Null
+    Write-Host "[quota-reminder] Started in background." -ForegroundColor Cyan
+}
+
 node scripts/run-node.mjs gateway
+
