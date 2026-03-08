@@ -1,0 +1,76 @@
+STDOUT:
+OpenClaw status
+
+Overview
+┌─────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Item            │ Value                                                                                             │
+├─────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Dashboard       │ http://127.0.0.1:18789/                                                                           │
+│ OS              │ windows 10.0.26200 (x64) · node 22.20.0                                                           │
+│ Tailscale       │ off                                                                                               │
+│ Channel         │ stable (default)                                                                                  │
+│ Update          │ available · pnpm · npm update 2026.2.26 · deps ok                                                 │
+│ Gateway         │ local · ws://127.0.0.1:18789 (local loopback) · reachable 28ms · auth token · YogiBabu (192.168.  │
+│                 │ 2.11) app unknown windows 10.0.26200                                                              │
+│ Gateway service │ Scheduled Task installed · missing · unknown (Error: schtasks unavailable: unknown error)         │
+│ Node service    │ Scheduled Task not installed                                                                      │
+│ Agents          │ 2 · 1 bootstrapping · sessions 174 · default panda active 2m ago                                  │
+│ Memory          │ 0 files · 0 chunks · dirty · sources memory · plugin memory-core · vector ready · fts ready ·     │
+│                 │ cache on (0)                                                                                      │
+│ Probes          │ enabled                                                                                           │
+│ Events          │ none                                                                                              │
+│ Heartbeat       │ 30m (panda), disabled (main)                                                                      │
+│ Last heartbeat  │ skipped · 3m ago ago · unknown                                                                    │
+│ Sessions        │ 174 active · default gemini-3-flash (200k ctx) · 2 stores                                         │
+└─────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Security audit
+Summary: 0 critical · 1 warn · 1 info
+  WARN Reverse proxy headers are not trusted
+    gateway.bind is loopback and gateway.trustedProxies is empty. If you expose the Control UI through a reverse proxy, configure trusted proxies so local-client c…
+    Fix: Set gateway.trustedProxies to your proxy IPs or keep the Control UI local-only.
+Full report: openclaw security audit
+Deep probe: openclaw security audit --deep
+
+Channels
+┌──────────┬─────────┬────────┬───────────────────────────────────────────────────────────────────────────────────────┐
+│ Channel  │ Enabled │ State  │ Detail                                                                                │
+├──────────┼─────────┼────────┼───────────────────────────────────────────────────────────────────────────────────────┤
+│ Telegram │ ON      │ OK     │ token env (8526…abps · len 46) · accounts 1/1                                         │
+└──────────┴─────────┴────────┴───────────────────────────────────────────────────────────────────────────────────────┘
+
+Sessions
+┌────────────────────────────────────────────────────────────┬────────┬─────────┬──────────────────┬──────────────────┐
+│ Key                                                        │ Kind   │ Age     │ Model            │ Tokens           │
+├────────────────────────────────────────────────────────────┼────────┼─────────┼──────────────────┼──────────────────┤
+│ agent:panda:main                                           │ direct │ 2m ago  │ gemini-3-flash   │ 200k/200k (100%) │
+│ agent:panda:cron:f51de0f9-5cbc-…                           │ direct │ 4d ago  │ gemini-3-flash   │ 13k/200k (6%)    │
+│ agent:panda:cron:f51de0f9-5cbc-…                           │ direct │ 4d ago  │ gemini-3-flash   │ 13k/200k (6%)    │
+│ agent:main:openai:dc791d5f-a72a…                           │ direct │ 7d ago  │ gemini-3-flash   │ 8.9k/200k (4%)   │
+│ agent:main:openai:5394bb09-a32f…                           │ direct │ 7d ago  │ gemini-3-flash   │ 8.9k/200k (4%)   │
+│ agent:main:openai:93344b09-61c3…                           │ direct │ 7d ago  │ gemini-3-flash   │ 8.9k/200k (4%)   │
+│ agent:main:openai:1cd55db6-9174…                           │ direct │ 7d ago  │ gemini-3-flash   │ 8.9k/200k (4%)   │
+│ agent:main:openai:1a2d70b0-005f…                           │ direct │ 7d ago  │ gemini-3-flash   │ 200k/200k (100%) │
+│ agent:main:openai:fedd3d6c-96ce…                           │ direct │ 7d ago  │ gemini-3-flash   │ 9.6k/200k (5%)   │
+│ agent:main:main                                            │ direct │ 8d ago  │ gemini-3-pro-low │ 200k/200k (100%) │
+└────────────────────────────────────────────────────────────┴────────┴─────────┴──────────────────┴──────────────────┘
+
+Health
+┌──────────┬───────────┬──────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Item     │ Status    │ Detail                                                                                       │
+├──────────┼───────────┼──────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Gateway  │ reachable │ 664ms                                                                                        │
+│ Telegram │ OK        │ ok (@PandaChapathiBot:default:664ms)                                                         │
+└──────────┴───────────┴──────────────────────────────────────────────────────────────────────────────────────────────┘
+
+FAQ: https://docs.openclaw.ai/faq
+Troubleshooting: https://docs.openclaw.ai/troubleshooting
+
+Update available (npm 2026.2.26). Run: openclaw update
+
+Next steps:
+  Need to share?      openclaw status --all
+  Need to debug live? openclaw logs --follow
+  Need to test channels? openclaw status --deep
+
+STDERR:

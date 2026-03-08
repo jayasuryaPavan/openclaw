@@ -1,0 +1,5 @@
+Model                                      Input      Ctx      Local Auth  Tags
+google-antigravity/gemini-3-flash          text+image 1024k    no    yes   default,image
+google-antigravity/gemini-3-1-pro-high     -          -        -     -     img-fallback#1,missing
+google-antigravity/gemini-3-1-pro-low      -          -        -     -     img-fallback#2,missing
+deepseek/deepseek-reasoner                 -          -        -     -     img-fallback#3,missing

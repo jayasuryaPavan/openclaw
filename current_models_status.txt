@@ -1,0 +1,21 @@
+Config        : C:\Work Space\Panda Chat\openclaw\openclaw.json
+Agent dir     : ~\.openclaw\agents\main\agent
+Default       : google-antigravity/gemini-3-flash
+Fallbacks (0) : -
+Image model   : google-antigravity/gemini-3-flash
+Image fallbacks (3): google-antigravity/gemini-3-1-pro-high, google-antigravity/gemini-3-1-pro-low, deepseek/deepseek-reasoner
+Aliases (0)   : -
+Configured models (0): all
+
+Auth overview
+Auth store    : ~\.openclaw\agents\main\agent\auth-profiles.json
+Shell env     : off
+Providers w/ OAuth/tokens (1): google-antigravity (1)
+- deepseek effective=models.json:sk-901c8...5c6cf267 | models.json=sk-901c8...5c6cf267 | source=models.json: ~\.openclaw\agents\main\agent\models.json
+- google effective=profiles:~\.openclaw\agents\main\agent\auth-profiles.json | profiles=1 (oauth=0, token=0, api_key=1) | google:default=AIzaSyC-...dQzdSeq8 | models.json=AIzaSyBr...H7pmqzMA | source=models.json: ~\.openclaw\agents\main\agent\models.json
+- google-antigravity effective=profiles:~\.openclaw\agents\main\agent\auth-profiles.json | profiles=1 (oauth=1, token=0, api_key=0) | google-antigravity:jayasuryadeveloper09@gmail.com=OAuth (jayasuryadeveloper09@gmail.com)
+- openai effective=profiles:~\.openclaw\agents\main\agent\auth-profiles.json | profiles=1 (oauth=0, token=0, api_key=1) | openai:default=sk-api-U...f9sdSRYI
+
+OAuth/token status
+- google-antigravity usage: claude-sonnet-4-6 40% left ⏱1d 10h · claude-opus-4-6-thinking 40% left ⏱1d 10h
+  - google-antigravity:jayasuryadeveloper09@gmail.com (jayasuryadeveloper09@gmail.com) ok expires in 0m

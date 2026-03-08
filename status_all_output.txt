@@ -1,0 +1,64 @@
+STDOUT:
+OpenClaw status --all
+
+Overview
+┌─────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Item            │ Value                                                                                             │
+├─────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Version         │ 2026.2.9                                                                                          │
+│ OS              │ windows 10.0.26200 (x64)                                                                          │
+│ Node            │ 22.20.0                                                                                           │
+│ Config          │ C:\Work Space\Panda Chat\openclaw\openclaw.json                                                   │
+│ Dashboard       │ http://127.0.0.1:18789/                                                                           │
+│ Tailscale       │ off                                                                                               │
+│ Channel         │ stable (default)                                                                                  │
+│ Update          │ pnpm · npm update 2026.2.26 · deps ok                                                             │
+│ Gateway         │ local · ws://127.0.0.1:18789 (local loopback) · reachable 39ms · auth token                       │
+│ Security        │ Run: openclaw security audit --deep                                                               │
+│ Gateway self    │ YogiBabu (192.168.2.11) app unknown windows 10.0.26200                                            │
+│ Gateway service │ Scheduled Task installed · missing · unknown                                                      │
+│ Node service    │ Scheduled Task not installed                                                                      │
+│ Agents          │ 2 total · 1 bootstrapping · 1 active · 174 sessions                                               │
+└─────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Channels
+┌──────────┬─────────┬────────┬───────────────────────────────────────────────────────────────────────────────────────┐
+│ Channel  │ Enabled │ State  │ Detail                                                                                │
+├──────────┼─────────┼────────┼───────────────────────────────────────────────────────────────────────────────────────┤
+│ Telegram │ ON      │ OK     │ token env (sha256:7b72ff31 · len 46) · accounts 1/1                                   │
+└──────────┴─────────┴────────┴───────────────────────────────────────────────────────────────────────────────────────┘
+
+Telegram accounts
+┌──────────┬──────────┬───────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Account  │ Status   │ Notes                                                                                         │
+├──────────┼──────────┼───────────────────────────────────────────────────────────────────────────────────────────────┤
+│ default  │ OK       │ token:env                                                                                     │
+└──────────┴──────────┴───────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Agents
+┌────────────────────┬───────────┬──────────┬──────────┬──────────────────────────────────────────────────────────────┐
+│ Agent              │ Bootstrap │ Sessions │ Active   │ Store                                                        │
+├────────────────────┼───────────┼──────────┼──────────┼──────────────────────────────────────────────────────────────┤
+│ panda (Panda Chat) │ OK        │       74 │ 2m ago   │ ~\.openclaw\agents\panda\sessions\sessions.json              │
+│ main               │ PENDING   │      100 │ 7d ago   │ ~\.openclaw\agents\main\sessions\sessions.json               │
+└────────────────────┴───────────┴──────────┴──────────┴──────────────────────────────────────────────────────────────┘
+
+Diagnosis (read-only)
+
+Gateway connection details:
+  Gateway target: ws://127.0.0.1:18789
+  Source: local loopback
+  Config: C:\Work Space\Panda Chat\openclaw\openclaw.json
+  Bind: loopback
+
+✓ Config: C:\Work Space\Panda Chat\openclaw\openclaw.json
+✓ Restart sentinel: none
+✓ Port 18789
+! Tailscale: off · unknown
+  error: Error: spawn tailscale ENOENT
+✓ Skills: 11 eligible · 0 missing · c:\Work Space\Panda Chat\openclaw
+✓ Channel issues (none)
+
+Pasteable debug report. Auth tokens redacted.
+Troubleshooting: https://docs.openclaw.ai/troubleshooting
+

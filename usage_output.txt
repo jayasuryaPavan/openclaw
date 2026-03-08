@@ -1,0 +1,5 @@
+STDOUT:
+
+STDERR:
+error: unknown command 'usage'
+(Did you mean one of message, update?)
