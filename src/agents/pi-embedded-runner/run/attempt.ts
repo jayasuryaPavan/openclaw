@@ -346,7 +346,7 @@ export async function runEmbeddedAttempt(
       cwd: process.cwd(),
       moduleUrl: import.meta.url,
     });
-    const ttsHint = params.config ? buildTtsSystemPromptHint(params.config) : undefined;
+    const ttsHint = params.config ? buildTtsSystemPromptHint(params.config, { hasInboundAudio: params.hasInboundAudio }) : undefined;
 
     const appendPrompt = buildEmbeddedSystemPrompt({
       workspaceDir: effectiveWorkspace,

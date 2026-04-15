@@ -340,18 +340,24 @@ export function resolveTtsAutoMode(params: {
   return params.config.auto;
 }
 
-export function buildTtsSystemPromptHint(cfg: OpenClawConfig): string | undefined {
+export function buildTtsSystemPromptHint(
+  cfg: OpenClawConfig,
+  opts?: { hasInboundAudio?: boolean }
+): string | undefined {
   const config = resolveTtsConfig(cfg);
   const prefsPath = resolveTtsPrefsPath(config);
   const autoMode = resolveTtsAutoMode({ config, prefsPath });
   if (autoMode === "off") {
     return undefined;
   }
+  if (autoMode === "inbound" && !opts?.hasInboundAudio) {
+    return undefined;
+  }
   const maxLength = getTtsMaxLength(prefsPath);
   const summarize = isSummarizationEnabled(prefsPath) ? "on" : "off";
   const autoHint =
     autoMode === "inbound"
-      ? "Only use TTS when the user's last message includes audio/voice."
+      ? "Respond with spoken text since the user used voice."
       : autoMode === "tagged"
         ? "Only use TTS when you include [[tts]] or [[tts:text]] tags."
         : undefined;
@@ -609,6 +615,21 @@ function parseTtsDirectives(
     if (policy.allowText && overrides.ttsText == null) {
       overrides.ttsText = inner.trim();
     }
+    return "";
+  });
+
+  const openBlockRegex = /\[\[tts:text\]\]([\s\S]*)$/i;
+  cleanedText = cleanedText.replace(openBlockRegex, (_match, inner: string) => {
+    hasDirective = true;
+    if (policy.allowText && overrides.ttsText == null && inner.trim()) {
+      overrides.ttsText = inner.trim();
+    }
+    return "";
+  });
+
+  const closeBlockRegex = /\[\[\/tts:text\]\]/gi;
+  cleanedText = cleanedText.replace(closeBlockRegex, () => {
+    hasDirective = true;
     return "";
   });
 
@@ -1461,29 +1482,41 @@ export async function maybeApplyTtsToPayload(params: {
           text: visibleText.length > 0 ? visibleText : undefined,
         };
 
+  // If TTS is skipped or fails, but there is explicit TTS text that was stripped,
+  // we combine the visible text and the TTS text so it is not silently lost.
+  const fallbackPayload =
+    directives.hasDirective && directives.ttsText?.trim()
+      ? {
+          ...params.payload,
+          text: visibleText ? `${visibleText}\n\n${directives.ttsText.trim()}` : directives.ttsText.trim(),
+        }
+      : nextPayload;
+
   if (autoMode === "tagged" && !directives.hasDirective) {
     return nextPayload;
   }
   if (autoMode === "inbound" && params.inboundAudio !== true) {
-    return nextPayload;
+    return visibleText ? nextPayload : fallbackPayload;
   }
 
   const mode = config.mode ?? "final";
   if (mode === "final" && params.kind && params.kind !== "final") {
-    return nextPayload;
+    // During block streaming if TTS is only applied at the end, keep the text clean (stripped of voice-only blocks)
+    // so it matches what the final message will look like.
+    return visibleText ? nextPayload : fallbackPayload;
   }
 
   if (!ttsText.trim()) {
     return nextPayload;
   }
   if (params.payload.mediaUrl || (params.payload.mediaUrls?.length ?? 0) > 0) {
-    return nextPayload;
+    return fallbackPayload;
   }
   if (text.includes("MEDIA:")) {
-    return nextPayload;
+    return fallbackPayload;
   }
   if (ttsText.trim().length < 10) {
-    return nextPayload;
+    return fallbackPayload;
   }
 
   const maxLength = getTtsMaxLength(prefsPath);
@@ -1562,7 +1595,7 @@ export async function maybeApplyTtsToPayload(params: {
 
   const latency = Date.now() - ttsStart;
   logVerbose(`TTS: conversion failed after ${latency}ms (${result.error ?? "unknown"}).`);
-  return nextPayload;
+  return fallbackPayload;
 }
 
 export const _test = {

@@ -5,7 +5,44 @@ import type {
 } from "../media-understanding/types.js";
 import type { StickerMetadata } from "../telegram/bot/types.js";
 import type { InternalMessageChannel } from "../utils/message-channel.js";
-import type { CommandArgs } from "./commands-registry.types.js";
+export type CommandArgs = Record<string, string | number | boolean>;
+
+const AUDIO_PLACEHOLDER_RE = /^<media:audio>(\s*\([^)]*\))?$/i;
+const AUDIO_HEADER_RE = /^\[Audio\b/i;
+
+function normalizeMediaType(value: string): string {
+  return value.split(";")[0]?.trim().toLowerCase() ?? "";
+}
+
+export function isInboundAudioContext(ctx: MsgContext | FinalizedMsgContext): boolean {
+  const rawTypes = [
+    typeof ctx.MediaType === "string" ? ctx.MediaType : undefined,
+    ...(Array.isArray(ctx.MediaTypes) ? ctx.MediaTypes : []),
+  ].filter(Boolean) as string[];
+  const types = rawTypes.map(normalizeMediaType);
+  if (types.some((type) => type === "audio" || type.startsWith("audio/"))) {
+    return true;
+  }
+
+  const body =
+    typeof ctx.BodyForCommands === "string"
+      ? ctx.BodyForCommands
+      : typeof ctx.CommandBody === "string"
+        ? ctx.CommandBody
+        : typeof ctx.RawBody === "string"
+          ? ctx.RawBody
+          : typeof ctx.Body === "string"
+            ? ctx.Body
+            : "";
+  const trimmed = body.trim();
+  if (!trimmed) {
+    return false;
+  }
+  if (AUDIO_PLACEHOLDER_RE.test(trimmed)) {
+    return true;
+  }
+  return AUDIO_HEADER_RE.test(trimmed);
+}
 
 /** Valid message channels for routing. */
 export type OriginatingChannelType = ChannelId | InternalMessageChannel;

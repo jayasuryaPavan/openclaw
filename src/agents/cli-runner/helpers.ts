@@ -206,6 +206,7 @@ export function buildSystemPrompt(params: {
   contextFiles?: EmbeddedContextFile[];
   modelDisplay: string;
   agentId?: string;
+  hasInboundAudio?: boolean;
 }) {
   const defaultModelRef = resolveDefaultModelForAgent({
     cfg: params.config ?? {},
@@ -227,7 +228,7 @@ export function buildSystemPrompt(params: {
       shell: detectRuntimeShell(),
     },
   });
-  const ttsHint = params.config ? buildTtsSystemPromptHint(params.config) : undefined;
+  const ttsHint = params.config ? buildTtsSystemPromptHint(params.config, { hasInboundAudio: params.hasInboundAudio }) : undefined;
   return buildAgentSystemPrompt({
     workspaceDir: params.workspaceDir,
     defaultThinkLevel: params.defaultThinkLevel,

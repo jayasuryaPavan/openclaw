@@ -48,6 +48,7 @@ export async function runCliAgent(params: {
   extraSystemPrompt?: string;
   streamParams?: import("../commands/agent/types.js").AgentStreamParams;
   ownerNumbers?: string[];
+  hasInboundAudio?: boolean;
   cliSessionId?: string;
   images?: ImageContent[];
 }): Promise<EmbeddedPiRunResult> {
@@ -119,6 +120,7 @@ export async function runCliAgent(params: {
     contextFiles,
     modelDisplay,
     agentId: sessionAgentId,
+    hasInboundAudio: params.hasInboundAudio,
   });
 
   const { sessionId: cliSessionIdToSend, isNew } = resolveSessionIdToSend({
@@ -338,6 +340,7 @@ export async function runClaudeCliAgent(params: {
   runId: string;
   extraSystemPrompt?: string;
   ownerNumbers?: string[];
+  hasInboundAudio?: boolean;
   claudeSessionId?: string;
   images?: ImageContent[];
 }): Promise<EmbeddedPiRunResult> {
@@ -356,6 +359,7 @@ export async function runClaudeCliAgent(params: {
     runId: params.runId,
     extraSystemPrompt: params.extraSystemPrompt,
     ownerNumbers: params.ownerNumbers,
+    hasInboundAudio: params.hasInboundAudio,
     cliSessionId: params.claudeSessionId,
     images: params.images,
   });

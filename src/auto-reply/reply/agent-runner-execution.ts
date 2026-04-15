@@ -32,6 +32,7 @@ import {
   resolveMessageChannel,
 } from "../../utils/message-channel.js";
 import { stripHeartbeatToken } from "../heartbeat.js";
+import { isInboundAudioContext } from "../templating.js";
 import { isSilentReplyText, SILENT_REPLY_TOKEN } from "../tokens.js";
 import { buildThreadingToolContext, resolveEnforceFinalTag } from "./agent-runner-utils.js";
 import { createBlockReplyPayloadKey, type BlockReplyPipeline } from "./block-reply-pipeline.js";
@@ -143,6 +144,7 @@ export async function runAgentTurnWithFallback(params: {
       };
       const blockReplyPipeline = params.blockReplyPipeline;
       const onToolResult = params.opts?.onToolResult;
+      const hasInboundAudio = isInboundAudioContext(params.sessionCtx);
       const fallbackResult = await runWithModelFallback({
         cfg: params.followupRun.run.config,
         provider: params.followupRun.run.provider,
@@ -190,6 +192,7 @@ export async function runAgentTurnWithFallback(params: {
                   runId,
                   extraSystemPrompt: params.followupRun.run.extraSystemPrompt,
                   ownerNumbers: params.followupRun.run.ownerNumbers,
+                  hasInboundAudio,
                   cliSessionId,
                   images: params.opts?.images,
                 });
@@ -283,6 +286,7 @@ export async function runAgentTurnWithFallback(params: {
             prompt: params.commandBody,
             extraSystemPrompt: params.followupRun.run.extraSystemPrompt,
             ownerNumbers: params.followupRun.run.ownerNumbers,
+            hasInboundAudio,
             enforceFinalTag: resolveEnforceFinalTag(params.followupRun.run, provider),
             provider,
             model,

@@ -1,5 +1,5 @@
 import type { OpenClawConfig } from "../../config/config.js";
-import type { FinalizedMsgContext } from "../templating.js";
+import { isInboundAudioContext, type FinalizedMsgContext } from "../templating.js";
 import type { GetReplyOptions, ReplyPayload } from "../types.js";
 import type { ReplyDispatcher, ReplyDispatchKind } from "./reply-dispatcher.js";
 import { resolveSessionAgentId } from "../../agents/agent-scope.js";
@@ -18,40 +18,7 @@ import { formatAbortReplyText, tryFastAbortFromMessage } from "./abort.js";
 import { shouldSkipDuplicateInbound } from "./inbound-dedupe.js";
 import { isRoutableChannel, routeReply } from "./route-reply.js";
 
-const AUDIO_PLACEHOLDER_RE = /^<media:audio>(\s*\([^)]*\))?$/i;
-const AUDIO_HEADER_RE = /^\[Audio\b/i;
 
-const normalizeMediaType = (value: string): string => value.split(";")[0]?.trim().toLowerCase();
-
-const isInboundAudioContext = (ctx: FinalizedMsgContext): boolean => {
-  const rawTypes = [
-    typeof ctx.MediaType === "string" ? ctx.MediaType : undefined,
-    ...(Array.isArray(ctx.MediaTypes) ? ctx.MediaTypes : []),
-  ].filter(Boolean) as string[];
-  const types = rawTypes.map((type) => normalizeMediaType(type));
-  if (types.some((type) => type === "audio" || type.startsWith("audio/"))) {
-    return true;
-  }
-
-  const body =
-    typeof ctx.BodyForCommands === "string"
-      ? ctx.BodyForCommands
-      : typeof ctx.CommandBody === "string"
-        ? ctx.CommandBody
-        : typeof ctx.RawBody === "string"
-          ? ctx.RawBody
-          : typeof ctx.Body === "string"
-            ? ctx.Body
-            : "";
-  const trimmed = body.trim();
-  if (!trimmed) {
-    return false;
-  }
-  if (AUDIO_PLACEHOLDER_RE.test(trimmed)) {
-    return true;
-  }
-  return AUDIO_HEADER_RE.test(trimmed);
-};
 
 const resolveSessionTtsAuto = (
   ctx: FinalizedMsgContext,

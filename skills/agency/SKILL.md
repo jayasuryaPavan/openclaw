@@ -1,6 +1,6 @@
 ---
 name: agency
-description: Collaborate with specialized AI agents (Coder, Tester, Documenter) for complex software development tasks.
+description: Collaborate with the GURU A2A Orchestrator for complex software development tasks using specialized agents.
 metadata:
   {
     "openclaw":
@@ -12,56 +12,60 @@ metadata:
       {
         "agency":
           {
-            "description": "Delegate a complex task to a specialized background agent.",
+            "description": "Delegate a complex multi-step coding task to the GURU orchestrator.",
             "parameters":
               {
                 "type": "object",
                 "properties":
                   {
-                    "role":
+                    "workflow":
                       {
                         "type": "string",
-                        "enum": ["coder", "tester", "documenter", "computer_user"],
-                        "description": "The agent role/specialization.",
+                        "description": "Comma-separated list of agents to use. Options: coder, tester, documenter. Usually 'coder,tester,documenter'.",
+                        "default": "coder,tester,documenter"
                       },
                     "task":
                       {
                         "type": "string",
-                        "description": "Detailed description of the task to perform.",
+                        "description": "Detailed description of the programming task to perform.",
                       },
                   },
-                "required": ["role", "task"],
+                "required": ["workflow", "task"],
               },
-            "cmd": "python delegate_task.py '{{role}}' '{{task}}'",
+            "cmd": "python delegate_task.py '{{workflow}}' '{{task}}'",
           },
       }
   }
 ---
 
-# Freelancer Agency
+# Freelancer Agency (GURU)
 
-Use this skill to delegate complex coding, testing, and documentation tasks to specialized background agents.
+Use this skill to delegate complex coding, testing, and documentation tasks to the standalone GURU A2A Orchestrator running on port 12345.
 
 ## Usage
 
 Run the python script `delegate_task.py` located in this skill's directory.
 
 ```bash
-python delegate_task.py [role] [task description]
+python delegate_task.py [workflow_csv] [task description]
 ```
 
-## Roles
+## Workflows
 
-*   **coder**: Writes code (Python, etc.) based on requirements.
-    *   Example: `python delegate_task.py coder "Write a snake game in python"`
-*   **tester**: Writes and runs tests for existing code.
-    *   Example: `python delegate_task.py tester "Test the snake game logic"`
-*   **documenter**: Writes documentation (README.md) for the project.
-    *   Example: `python delegate_task.py documenter "Create documentation for the project"`
+The workflow is a comma-separated list of agents you want to run sequentially. Available agents:
+
+*   **coder**: Writes Python code based on requirements.
+*   **tester**: Writes pytest tests for the code.
+*   **documenter**: Writes a README.md explaining the code.
+
+Examples:
+*   Full Pipeline: `python delegate_task.py coder,tester,documenter "Write a snake game in python"`
+*   Just Coding: `python delegate_task.py coder "Build a JWT verifier"`
+*   Code + Tests: `python delegate_task.py coder,tester "Create a quicksort function"`
 
 ## Behavior
 
-*   The command sends a request to the **Agency Manager** running on `localhost:12345`.
-*   The agent runs in the background and saves output to `workspace/code/` or `workspace/logs/`.
-*   Do NOT wait for the agent to finish. It runs asynchronously.
-*   Tell the user "I have delegated this task to the [role] agent."
+*   The command sends an A2A task via JSON-RPC to **GURU Orchestrator** running on `localhost:12345`.
+*   The orchestrator runs the specified workflow in the background. Artifacts are saved to `guru/data/artifacts/[task_id]`.
+*   Do NOT wait for GURU to finish. It runs asynchronously.
+*   Tell the user "I have delegated this task to the GURU orchestrator." and provide them with the Task ID output by the script so they can track it on the dashboard.
