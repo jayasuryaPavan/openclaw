@@ -1,6 +1,7 @@
 packages:
   - .
   - ui
+  - panda-ui
   - packages/*
   - extensions/*
 

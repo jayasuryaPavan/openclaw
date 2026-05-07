@@ -44,6 +44,7 @@ import { resolveGatewayClientIp } from "./net.js";
 import { handleOpenAiHttpRequest } from "./openai-http.js";
 import { handleOpenResponsesHttpRequest } from "./openresponses-http.js";
 import { handleToolsInvokeHttpRequest } from "./tools-invoke-http.js";
+import { handlePandaUiHttpRequest } from "./panda-ui.js";
 
 type SubsystemLogger = ReturnType<typeof createSubsystemLogger>;
 
@@ -377,6 +378,15 @@ export function createGatewayHttpServer(opts: {
         if (await canvasHost.handleHttpRequest(req, res)) {
           return;
         }
+      }
+      if (
+        handlePandaUiHttpRequest(req, res, {
+          token: resolvedAuth.token,
+          agentId: "panda",
+          baseUrl: "",
+        })
+      ) {
+        return;
       }
       if (controlUiEnabled) {
         if (
